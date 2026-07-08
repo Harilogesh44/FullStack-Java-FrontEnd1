@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8081";
+const API_BASE_URL = "https://fullstack-java-backend-4.onrender.com";
 
 const ENDPOINTS = {
     products: "/products",
