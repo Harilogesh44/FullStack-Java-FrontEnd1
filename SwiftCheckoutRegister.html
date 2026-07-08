@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a SwiftCheckout account. Register as a customer or admin to access the retail management dashboard.">
+    <title>Register – SwiftCheckout</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/SwiftCheckoutStyle.css">
+
+    <style>
+        /* Register-specific overrides for 6-field form */
+        .form-box { max-width: 500px; padding: 40px 36px; }
+        .form-box label { margin-top: 16px; }
+        .strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 6px;
+            background: var(--border-glass);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .strength-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s ease, background 0.4s ease;
+            width: 0%;
+        }
+        .strength-label {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+            color: var(--text-muted);
+        }
+        .requirements {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .req-item.met { color: #4ade80; }
+        .req-item i { font-size: 10px; }
+    </style>
+</head>
+
+<body class="auth-page">
+
+<div class="auth-layout">
+
+    <!-- ── BRAND PANEL ── -->
+    <section class="brand-section" aria-label="SwiftCheckout branding">
+
+        <a href="SwiftCheckoutIndex.html" class="brand-home" aria-label="Back to home">
+            <i class="fa-solid fa-bolt"></i> SwiftCheckout
+        </a>
+
+        <h1>Create<br>Your Account</h1>
+
+        <p>
+            Join SwiftCheckout to access the full retail management suite —
+            from product catalog management to real-time inventory and order processing.
+        </p>
+
+        <div class="brand-points">
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <div>
+                    <div class="brand-point-text">Instant Account Creation</div>
+                    <div class="brand-point-desc">Start managing retail in seconds</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <div>
+                    <div class="brand-point-text">Role-Based Dashboard Access</div>
+                    <div class="brand-point-desc">Admin full control · Customer order view</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                    <div class="brand-point-text">BCrypt Password Hashing</div>
+                    <div class="brand-point-desc">Your credentials are always encrypted</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div>
+                    <div class="brand-point-text">Full Retail Lifecycle Access</div>
+                    <div class="brand-point-desc">Products · Inventory · Orders · Payments</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- What You Get panel -->
+        <div style="margin-top:32px; padding:18px; background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.2); border-radius:12px; position:relative; z-index:1;">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#60a5fa; margin-bottom:12px;">
+                <i class="fa-solid fa-gift"></i> &nbsp;What You Get
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#94a3b8;">
+                    <i class="fa-solid fa-check" style="color:#4ade80; font-size:11px;"></i> Real-time product catalog management
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#94a3b8;">
+                    <i class="fa-solid fa-check" style="color:#4ade80; font-size:11px;"></i> Live inventory stock adjustment
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#94a3b8;">
+                    <i class="fa-solid fa-check" style="color:#4ade80; font-size:11px;"></i> Order placement and tracking
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#94a3b8;">
+                    <i class="fa-solid fa-check" style="color:#4ade80; font-size:11px;"></i> Secure payment processing
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ── FORM PANEL ── -->
+    <section class="form-section" aria-label="Registration form">
+
+        <div class="form-box" id="registerFormBox">
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Fill in the details below to register a new account</p>
+
+            <!-- Full Name -->
+            <label for="name">Full Name</label>
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                >
+                <i class="fa-solid fa-user input-icon" aria-hidden="true"></i>
+            </div>
+
+            <!-- Email -->
+            <label for="email">Email Address</label>
+            <div class="input-group">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter email address"
+                    autocomplete="email"
+                >
+                <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
+            </div>
+
+            <!-- Username -->
+            <label for="username">Username</label>
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Choose a username"
+                    autocomplete="username"
+                >
+                <i class="fa-solid fa-at input-icon" aria-hidden="true"></i>
+            </div>
+
+            <!-- Password -->
+            <label for="password">Password</label>
+            <div class="input-group" style="position:relative;">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a strong password"
+                    autocomplete="new-password"
+                    oninput="evaluatePassword(this.value)"
+                >
+                <i class="fa-solid fa-lock input-icon" aria-hidden="true"></i>
+                <button
+                    type="button"
+                    aria-label="Toggle password visibility"
+                    style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:4px;"
+                    onclick="togglePwd('password','pwdIcon1')"
+                >
+                    <i class="fa-solid fa-eye" id="pwdIcon1"></i>
+                </button>
+            </div>
+
+            <!-- Password Strength -->
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+            <div class="strength-label" id="strengthLabel">Enter a password to check strength</div>
+
+            <div class="requirements" id="reqGrid" style="display:none;">
+                <div class="req-item" id="req-len"><i class="fa-solid fa-circle-xmark"></i> 8+ characters</div>
+                <div class="req-item" id="req-upper"><i class="fa-solid fa-circle-xmark"></i> Uppercase letter</div>
+                <div class="req-item" id="req-num"><i class="fa-solid fa-circle-xmark"></i> Number</div>
+                <div class="req-item" id="req-special"><i class="fa-solid fa-circle-xmark"></i> Special character</div>
+            </div>
+
+            <!-- Role -->
+            <label for="role">Account Role</label>
+            <div class="input-group">
+                <select id="role">
+                    <option value="CUSTOMER">Customer (ROLE_CUSTOMER)</option>
+                    <option value="ADMIN">Administrator (ROLE_ADMIN)</option>
+                </select>
+                <i class="fa-solid fa-user-tag input-icon" aria-hidden="true"></i>
+            </div>
+
+            <div style="margin-top:14px; padding:12px 14px; background:rgba(250,204,21,0.06); border:1px solid rgba(250,204,21,0.2); border-radius:8px; font-size:12px; color:#94a3b8;">
+                <i class="fa-solid fa-circle-info" style="color:#facc15; margin-right:6px;"></i>
+                <strong style="color:#f1f5f9;">Admin</strong> accounts can manage inventory and products.
+                <strong style="color:#f1f5f9;">Customer</strong> accounts can view and place orders.
+            </div>
+
+            <button
+                id="registerButton"
+                onclick="registerUser()"
+                class="main-btn"
+                type="button"
+            >
+                <i class="fa-solid fa-user-plus"></i>
+                Create Account
+            </button>
+
+            <p id="message" class="message" role="alert" aria-live="polite"></p>
+
+            <p class="switch-text">
+                Already have an account?
+                <a href="SwiftCheckoutLogin.html" id="loginLink">Sign In</a>
+            </p>
+
+            <a href="SwiftCheckoutIndex.html" class="back-link" id="backToHomeLink">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- Register JS (from external file with extended logic) -->
+<script>
+
+    function togglePwd(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon  = document.getElementById(iconId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fa-solid fa-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'fa-solid fa-eye';
+        }
+    }
+
+    function evaluatePassword(val) {
+        const fill  = document.getElementById('strengthFill');
+        const label = document.getElementById('strengthLabel');
+        const grid  = document.getElementById('reqGrid');
+
+        if (!val) {
+            fill.style.width = '0%';
+            label.textContent = 'Enter a password to check strength';
+            grid.style.display = 'none';
+            return;
+        }
+
+        grid.style.display = 'grid';
+
+        const hasLen     = val.length >= 8;
+        const hasUpper   = /[A-Z]/.test(val);
+        const hasNum     = /\d/.test(val);
+        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+
+        updateReq('req-len',     hasLen);
+        updateReq('req-upper',   hasUpper);
+        updateReq('req-num',     hasNum);
+        updateReq('req-special', hasSpecial);
+
+        const score = [hasLen, hasUpper, hasNum, hasSpecial].filter(Boolean).length;
+
+        const levels = [
+            { pct: '25%', color: '#ef4444', text: 'Weak' },
+            { pct: '50%', color: '#f97316', text: 'Fair' },
+            { pct: '75%', color: '#facc15', text: 'Good' },
+            { pct: '100%', color: '#22c55e', text: 'Strong ✓' },
+        ];
+
+        const lvl = levels[score - 1] || levels[0];
+        fill.style.width      = lvl.pct;
+        fill.style.background = lvl.color;
+        label.textContent     = 'Password strength: ' + lvl.text;
+        label.style.color     = lvl.color;
+    }
+
+    function updateReq(id, met) {
+        const el = document.getElementById(id);
+        el.className = 'req-item' + (met ? ' met' : '');
+        el.querySelector('i').className = met ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-xmark';
+    }
+
+    async function registerUser() {
+
+        const name     = document.getElementById('name').value.trim();
+        const email    = document.getElementById('email').value.trim();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const role     = document.getElementById('role').value;
+        const message  = document.getElementById('message');
+        const button   = document.getElementById('registerButton');
+
+        // Validation
+        if (!name || !email || !username || !password) {
+            setMessage(message, 'error', 'Please fill in all required fields.');
+            return;
+        }
+
+        if (!email.includes('@')) {
+            setMessage(message, 'error', 'Please enter a valid email address.');
+            return;
+        }
+
+        if (password.length < 6) {
+            setMessage(message, 'error', 'Password must be at least 6 characters long.');
+            return;
+        }
+
+        button.disabled     = true;
+        button.innerHTML    = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+        message.textContent = '';
+        message.className   = 'message';
+
+        try {
+            const response = await fetch('http://localhost:8081/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, username, password, role })
+            });
+
+            const result = await response.text();
+
+            if (response.status === 409) {
+                setMessage(message, 'error', 'Username already exists. Please choose a different username or log in.');
+                return;
+            }
+
+            if (response.status === 400) {
+                setMessage(message, 'error', result || 'Please check your input and try again.');
+                return;
+            }
+
+            if (response.status === 403) {
+                setMessage(message, 'error', 'Access denied. Please try again later.');
+                return;
+            }
+
+            if (response.status >= 500) {
+                setMessage(message, 'error', 'Server error. Please try again later.');
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(result || 'Registration failed. Please try again.');
+            }
+
+            setMessage(message, 'success', '✓ Account created successfully! Redirecting to login…');
+
+            setTimeout(() => { window.location.href = 'SwiftCheckoutLogin.html'; }, 1500);
+
+        } catch (error) {
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                setMessage(message, 'error', 'Unable to connect to server. Please make sure the backend is running on port 8081.');
+            } else {
+                setMessage(message, 'error', 'Registration failed: ' + error.message);
+            }
+        } finally {
+            button.disabled  = false;
+            button.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
+        }
+    }
+
+    function setMessage(el, type, text) {
+        el.textContent = text;
+        el.className   = 'message';
+        if (type === 'success') {
+            el.style.cssText = 'color:#4ade80; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2); padding:10px 14px; border-radius:8px; margin-top:18px; font-weight:600; font-size:14px;';
+        } else {
+            el.style.cssText = 'color:#f87171; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); padding:10px 14px; border-radius:8px; margin-top:18px; font-weight:600; font-size:14px;';
+        }
+    }
+
+</script>
+
+</body>
+</html>

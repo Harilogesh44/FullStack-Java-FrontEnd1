@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SwiftCheckout Dashboard – Manage products, inventory, orders, payments, and customers from a unified retail control panel.">
+    <title>Dashboard – SwiftCheckout</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Dashboard Stylesheet -->
+    <link rel="stylesheet" href="css/SwiftCheckoutDashboard.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+<aside class="sidebar" role="navigation" aria-label="Dashboard navigation">
+
+    <div class="sidebar-header">
+        <div class="logo"><i class="fa-solid fa-bolt"></i> SwiftCheckout</div>
+        <div class="logo-sub">Retail Management Console</div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <div class="sidebar-section-label">Main</div>
+
+        <button class="nav-btn active" id="navOverview" onclick="showSection('overview', this)">
+            <i class="fa-solid fa-chart-pie"></i>
+            Dashboard
+        </button>
+
+        <button class="nav-btn" id="navProducts" onclick="showSection('products', this)">
+            <i class="fa-solid fa-box-open"></i>
+            Products
+        </button>
+
+        <button class="nav-btn" id="navInventory" onclick="showSection('inventory', this)">
+            <i class="fa-solid fa-warehouse"></i>
+            Inventory
+        </button>
+
+        <div class="sidebar-section-label">Transactions</div>
+
+        <button class="nav-btn" id="navOrders" onclick="showSection('orders', this)">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Orders
+        </button>
+
+        <button class="nav-btn" id="navPayments" onclick="showSection('payments', this)">
+            <i class="fa-solid fa-credit-card"></i>
+            Payments
+        </button>
+
+        <div class="sidebar-section-label">Users</div>
+
+        <button class="nav-btn" id="navCustomers" onclick="showSection('customers', this)">
+            <i class="fa-solid fa-users"></i>
+            Customers
+        </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()" id="logoutBtn">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Logout
+        </button>
+    </div>
+
+</aside>
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+<main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar" role="banner">
+
+        <div class="topbar-left">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">High-Concurrency Retail Management Gateway</p>
+        </div>
+
+        <div class="topbar-right">
+
+            <div class="topbar-badge">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <span id="loggedUser">Loading…</span>
+                <span id="loggedRole" class="role-badge customer">USER</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ==================================================
+         OVERVIEW SECTION
+         ================================================== -->
+    <section id="overview" class="content-section active-section" aria-label="Dashboard Overview">
+
+        <!-- Stat Cards -->
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon-circle blue"><i class="fa-solid fa-box-open"></i></div>
+                <h3>Total Products</h3>
+                <p id="productCount">—</p>
+                <div class="card-trend"><i class="fa-solid fa-arrow-trend-up"></i> Live</div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-circle cyan"><i class="fa-solid fa-warehouse"></i></div>
+                <h3>Inventory Records</h3>
+                <p id="inventoryCount">—</p>
+                <div class="card-trend"><i class="fa-solid fa-arrow-trend-up"></i> Live</div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-circle green"><i class="fa-solid fa-cart-shopping"></i></div>
+                <h3>Total Orders</h3>
+                <p id="orderCount">—</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-circle yellow"><i class="fa-solid fa-credit-card"></i></div>
+                <h3>Total Payments</h3>
+                <p id="paymentCount">—</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon-circle purple"><i class="fa-solid fa-users"></i></div>
+                <h3>Customers</h3>
+                <p id="customerCount">—</p>
+            </div>
+
+            <div class="card warning-card">
+                <div class="card-icon-circle red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>Low Stock Items</h3>
+                <p id="lowStockCount">—</p>
+            </div>
+
+        </div>
+
+        <!-- Overview Information Panel -->
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>
+                        <i class="fa-solid fa-bolt" style="color:#06b6d4; margin-right:8px;"></i>
+                        SwiftCheckout Overview
+                    </h2>
+                    <p class="panel-desc">Your unified retail management control panel</p>
+                </div>
+            </div>
+
+            <div class="overview-info">
+
+                <div class="overview-item">
+                    <h4>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Security Architecture
+                    </h4>
+                    <p>
+                        All protected endpoints require a valid HS256-signed JWT Bearer token.
+                        Tokens are issued at login and expire after 24 hours. Admin routes require
+                        ROLE_ADMIN, while order views are restricted to ROLE_CUSTOMER.
+                    </p>
+                </div>
+
+                <div class="overview-item">
+                    <h4>
+                        <i class="fa-solid fa-sitemap"></i>
+                        System Architecture
+                    </h4>
+                    <p>
+                        Built on a layered Spring Boot architecture: REST Controllers delegate
+                        to Service classes, which interact with JPA Repositories backed by MySQL.
+                        DTOs decouple the API surface from internal Hibernate entities.
+                    </p>
+                </div>
+
+                <div class="overview-item">
+                    <h4>
+                        <i class="fa-solid fa-users-gear"></i>
+                        Role-Based Access
+                    </h4>
+                    <p>
+                        <strong style="color:#c084fc;">ROLE_ADMIN</strong> — full access: product management,
+                        inventory adjustments, all dashboard sections.<br>
+                        <strong style="color:#60a5fa;">ROLE_CUSTOMER</strong> — order viewing, checkout, payment processing.
+                    </p>
+                </div>
+
+                <div class="overview-item">
+                    <h4>
+                        <i class="fa-solid fa-database"></i>
+                        Database & Seeding
+                    </h4>
+                    <p>
+                        MySQL on jdbc:mysql://localhost:3306/swiftcheckout with Hibernate DDL auto-update.
+                        DataSeeder pre-populates admin, cashier, and 3–5 sample products
+                        with inventory on first startup.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         PRODUCTS SECTION
+         ================================================== -->
+    <section id="products" class="content-section" aria-label="Product Management">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2><i class="fa-solid fa-box-open" style="color:#3b82f6; margin-right:8px;"></i>Product Catalog</h2>
+                    <p class="panel-desc">Manage SKUs, pricing, and categories across your product catalog</p>
+                </div>
+                <button class="primary-btn" onclick="openProductForm()" id="addProductBtn">
+                    <i class="fa-solid fa-plus"></i> Add Product
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <div style="position:relative;">
+                    <input
+                        type="text"
+                        id="productSearch"
+                        placeholder="Search by Product Name or SKU"
+                        oninput="filterProducts()"
+                        style="padding-left:38px;"
+                    >
+                    <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:13px;pointer-events:none;"></i>
+                </div>
+
+                <select id="categoryFilter" onchange="filterProducts()">
+                    <option value="">All Categories</option>
+                    <option value="ELECTRONICS">Electronics</option>
+                    <option value="CLOTHING">Clothing</option>
+                    <option value="GROCERY">Grocery</option>
+                </select>
+            </div>
+
+            <!-- Product Form -->
+            <div id="productFormBox" class="form-box hidden">
+
+                <h3><i class="fa-solid fa-pen-to-square"></i> <span id="productFormTitle">Add New Product</span></h3>
+
+                <input type="hidden" id="productId">
+
+                <div class="form-grid">
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Product Name *</label>
+                        <input type="text" id="productName" placeholder="e.g. iPhone 15 Pro">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">SKU Code *</label>
+                        <input type="text" id="productSku" placeholder="e.g. ELEC-001">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Price (₹) *</label>
+                        <input type="number" id="productPrice" step="0.01" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Category *</label>
+                        <select id="productCategory">
+                            <option value="ELECTRONICS">Electronics</option>
+                            <option value="CLOTHING">Clothing</option>
+                            <option value="GROCERY">Grocery</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="primary-btn" onclick="saveProduct()" id="saveProductBtn">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Product
+                    </button>
+                    <button class="secondary-btn" onclick="closeProductForm()">
+                        <i class="fa-solid fa-xmark"></i> Cancel
+                    </button>
+                </div>
+
+                <p id="productMessage" class="message"></p>
+
+            </div>
+
+            <!-- Product Table -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-hashtag" style="opacity:0.5;margin-right:4px;"></i>ID</th>
+                            <th><i class="fa-solid fa-tag" style="opacity:0.5;margin-right:4px;"></i>Product Name</th>
+                            <th><i class="fa-solid fa-barcode" style="opacity:0.5;margin-right:4px;"></i>SKU</th>
+                            <th><i class="fa-solid fa-layer-group" style="opacity:0.5;margin-right:4px;"></i>Category</th>
+                            <th><i class="fa-solid fa-indian-rupee-sign" style="opacity:0.5;margin-right:4px;"></i>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Loading products…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         INVENTORY SECTION
+         ================================================== -->
+    <section id="inventory" class="content-section" aria-label="Inventory Management">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2><i class="fa-solid fa-warehouse" style="color:#22d3ee; margin-right:8px;"></i>Inventory Management</h2>
+                    <p class="panel-desc">Monitor stock levels and apply quantity adjustments by SKU</p>
+                </div>
+                <button class="primary-btn" onclick="loadInventory()" id="refreshInventoryBtn">
+                    <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                </button>
+            </div>
+
+            <!-- Low Stock Alert Banner -->
+            <div id="lowStockBanner" class="hidden" style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px;margin-bottom:16px;color:#f87171;font-size:13px;font-weight:600;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="lowStockMessage">Some items have low stock levels. Immediate restocking recommended.</span>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-hashtag" style="opacity:0.5;margin-right:4px;"></i>ID</th>
+                            <th><i class="fa-solid fa-barcode" style="opacity:0.5;margin-right:4px;"></i>SKU</th>
+                            <th><i class="fa-solid fa-cubes" style="opacity:0.5;margin-right:4px;"></i>Stock Level</th>
+                            <th><i class="fa-solid fa-sliders" style="opacity:0.5;margin-right:4px;"></i>Adjustment</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Loading inventory…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         ORDERS SECTION
+         ================================================== -->
+    <section id="orders" class="content-section" aria-label="Order Management">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2><i class="fa-solid fa-cart-shopping" style="color:#4ade80; margin-right:8px;"></i>Order Management</h2>
+                    <p class="panel-desc">Place new orders and view the complete order history</p>
+                </div>
+                <button class="primary-btn" onclick="toggleOrderForm()" id="placeOrderBtn">
+                    <i class="fa-solid fa-plus"></i> Place Order
+                </button>
+            </div>
+
+            <!-- Order Form -->
+            <div id="orderFormBox" class="form-box hidden">
+
+                <h3><i class="fa-solid fa-cart-plus"></i> Place New Order</h3>
+
+                <div class="form-grid">
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Product ID</label>
+                        <input type="text" id="orderProductId" placeholder="e.g. 1">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Quantity</label>
+                        <input type="number" id="orderQuantity" placeholder="e.g. 3" min="1">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Customer ID</label>
+                        <input type="number" id="orderCustomerId" placeholder="e.g. 2">
+                    </div>
+                </div>
+
+                <div style="padding:12px 14px; background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.2); border-radius:8px; font-size:12px; color:var(--text-secondary); margin-bottom:14px;">
+                    <i class="fa-solid fa-circle-info" style="color:#60a5fa; margin-right:6px;"></i>
+                    Orders are automatically set to <strong style="color:#4ade80;">COMPLETED</strong> status upon placement.
+                </div>
+
+                <button class="primary-btn" onclick="placeOrder()" id="submitOrderBtn">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Order
+                </button>
+
+                <p id="orderMessage" class="message"></p>
+
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-hashtag" style="opacity:0.5;margin-right:4px;"></i>Order ID</th>
+                            <th><i class="fa-solid fa-box" style="opacity:0.5;margin-right:4px;"></i>Product ID</th>
+                            <th><i class="fa-solid fa-cubes" style="opacity:0.5;margin-right:4px;"></i>Quantity</th>
+                            <th><i class="fa-solid fa-user" style="opacity:0.5;margin-right:4px;"></i>Customer ID</th>
+                            <th><i class="fa-solid fa-circle-dot" style="opacity:0.5;margin-right:4px;"></i>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Loading orders…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         PAYMENTS SECTION
+         ================================================== -->
+    <section id="payments" class="content-section" aria-label="Payment Management">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2><i class="fa-solid fa-credit-card" style="color:#facc15; margin-right:8px;"></i>Payment Management</h2>
+                    <p class="panel-desc">Process new payments and view all historical payment transactions</p>
+                </div>
+                <button class="primary-btn" onclick="togglePaymentForm()" id="processPaymentBtn">
+                    <i class="fa-solid fa-plus"></i> Process Payment
+                </button>
+            </div>
+
+            <!-- Payment Form -->
+            <div id="paymentFormBox" class="form-box hidden">
+
+                <h3><i class="fa-solid fa-file-invoice-dollar"></i> Process New Payment</h3>
+
+                <div class="form-grid">
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Order ID</label>
+                        <input type="number" id="paymentOrderId" placeholder="Linked order ID">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Amount (₹)</label>
+                        <input type="number" id="paymentAmount" step="0.01" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px;">Payment Method</label>
+                        <select id="paymentMethod">
+                            <option value="CREDIT_CARD">💳 Credit Card</option>
+                            <option value="DEBIT_CARD">🏦 Debit Card</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="primary-btn" onclick="processPayment()" id="payNowBtn">
+                    <i class="fa-solid fa-lock"></i> Pay Now
+                </button>
+
+                <p id="paymentMessage" class="message"></p>
+
+            </div>
+
+            <!-- Payments Table -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-hashtag" style="opacity:0.5;margin-right:4px;"></i>ID</th>
+                            <th><i class="fa-solid fa-cart-shopping" style="opacity:0.5;margin-right:4px;"></i>Order ID</th>
+                            <th><i class="fa-solid fa-indian-rupee-sign" style="opacity:0.5;margin-right:4px;"></i>Amount</th>
+                            <th><i class="fa-solid fa-wallet" style="opacity:0.5;margin-right:4px;"></i>Method</th>
+                            <th><i class="fa-solid fa-circle-dot" style="opacity:0.5;margin-right:4px;"></i>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Loading payments…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         CUSTOMERS SECTION
+         ================================================== -->
+    <section id="customers" class="content-section" aria-label="Customer Management">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2><i class="fa-solid fa-users" style="color:#c084fc; margin-right:8px;"></i>Registered Customers</h2>
+                    <p class="panel-desc">View all registered customers, their roles, and account details</p>
+                </div>
+                <button class="primary-btn" onclick="loadCustomers()" id="refreshCustomersBtn">
+                    <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-hashtag" style="opacity:0.5;margin-right:4px;"></i>ID</th>
+                            <th><i class="fa-solid fa-user" style="opacity:0.5;margin-right:4px;"></i>Name / Username</th>
+                            <th><i class="fa-solid fa-envelope" style="opacity:0.5;margin-right:4px;"></i>Email</th>
+                            <th><i class="fa-solid fa-shield-halved" style="opacity:0.5;margin-right:4px;"></i>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTableBody">
+                        <tr>
+                            <td colspan="4" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Loading customers…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="js/SwiftCheckoutDashboard.js?v=3"></script>
+
+<script>
+    // Enhance topbar with avatar letter and role badge class
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const username = localStorage.getItem('username')
+                      || localStorage.getItem('email')
+                      || 'U';
+
+        const role = (localStorage.getItem('role') || 'USER').toUpperCase();
+
+        // Set avatar initial
+        const avatar = document.getElementById('userAvatar');
+        if (avatar) {
+            avatar.textContent = username.charAt(0).toUpperCase();
+        }
+
+        // Apply role-specific class to badge
+        const badge = document.getElementById('loggedRole');
+        if (badge) {
+            badge.className = 'role-badge ' + (role.includes('ADMIN') ? 'admin' : 'customer');
+        }
+
+        // Update page subtitles when switching sections
+        const subtitles = {
+            overview:  'High-Concurrency Retail Management Gateway',
+            products:  'Manage your product catalog, SKUs, and pricing',
+            inventory: 'Monitor and adjust real-time stock levels',
+            orders:    'Place and track all customer orders',
+            payments:  'Process and view all payment transactions',
+            customers: 'View registered customers and their roles'
+        };
+
+        // Patch showSection to also update subtitle
+        const _orig = window.showSection;
+        window.showSection = function(sectionId, btn) {
+            _orig && _orig(sectionId, btn);
+            const subtitleEl = document.getElementById('pageSubtitle');
+            if (subtitleEl) {
+                subtitleEl.textContent = subtitles[sectionId] || '';
+            }
+        };
+    });
+</script>
+
+</body>
+</html>

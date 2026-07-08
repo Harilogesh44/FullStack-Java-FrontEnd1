@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SwiftCheckout – A high-concurrency retail gateway built with Spring Boot & React. Manage products, inventory, orders, and payments with JWT-secured REST APIs.">
+    <title>SwiftCheckout – High-Concurrency Retail Gateway</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/SwiftCheckoutStyle.css">
+</head>
+
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+
+    <a href="#home" class="logo-link" aria-label="SwiftCheckout Home">
+        <i class="fa-solid fa-bolt"></i> SwiftCheckout
+    </a>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="SwiftCheckoutRegister.html">Register</a>
+        <a href="SwiftCheckoutLogin.html" class="login-btn" id="navLoginBtn">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+        </a>
+    </div>
+
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home" aria-label="Hero Section">
+
+    <div class="hero-content">
+
+        <div class="hero-eyebrow">
+            <i class="fa-solid fa-circle" style="color:#22c55e"></i>
+            Live System &nbsp;·&nbsp; Spring Boot 3.2 &nbsp;·&nbsp; React 19
+        </div>
+
+        <h1>
+            High-Concurrency<br>
+            <span class="gradient-text">Retail Gateway</span><br>
+            Built to Scale
+        </h1>
+
+        <p>
+            SwiftCheckout is a production-grade checkout management platform that delivers
+            real-time inventory tracking, JWT-secured order processing, and role-based
+            access control for modern retail operations at any scale.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="SwiftCheckoutRegister.html" class="primary-btn" id="heroGetStartedBtn">
+                <i class="fa-solid fa-rocket"></i>
+                Get Started Free
+            </a>
+            <a href="#about" class="secondary-btn" id="heroLearnMoreBtn">
+                <i class="fa-solid fa-play"></i>
+                Learn More
+            </a>
+        </div>
+
+    </div>
+
+    <div class="hero-card" aria-label="Feature highlights">
+
+        <h3><i class="fa-solid fa-shield-halved" style="color:#06b6d4; margin-right:8px"></i> Platform Capabilities</h3>
+
+        <div class="hero-feature">
+            <i class="fa-solid fa-users"></i>
+            <span>Customer Authentication & Role Management</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-box"></i>
+            <span>Product Catalog CRUD with SKU Tracking</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-warehouse"></i>
+            <span>Real-Time Inventory Stock Control</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>High-Concurrency Order Processing</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-credit-card"></i>
+            <span>Secure Payment Gateway Integration</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-key"></i>
+            <span>HS256 JWT Stateless API Security</span>
+        </div>
+        <div class="hero-feature">
+            <i class="fa-solid fa-database"></i>
+            <span>MySQL + Hibernate JPA Persistence</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar" aria-label="Platform statistics">
+
+    <div class="stat-item">
+        <div class="stat-number" id="statProducts">5K+</div>
+        <div class="stat-label"><i class="fa-solid fa-box"></i> Products Managed</div>
+    </div>
+
+    <div class="stat-item">
+        <div class="stat-number" id="statOrders">99.9%</div>
+        <div class="stat-label"><i class="fa-solid fa-server"></i> API Uptime</div>
+    </div>
+
+    <div class="stat-item">
+        <div class="stat-number" id="statConcurrent">10K+</div>
+        <div class="stat-label"><i class="fa-solid fa-bolt"></i> Concurrent Requests</div>
+    </div>
+
+    <div class="stat-item">
+        <div class="stat-number" id="statSecurity">256-bit</div>
+        <div class="stat-label"><i class="fa-solid fa-lock"></i> JWT Encryption</div>
+    </div>
+
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about" aria-labelledby="aboutTitle">
+
+    <div class="section-eyebrow">
+        <i class="fa-solid fa-circle-info"></i> About the Platform
+    </div>
+    <h2 class="section-title" id="aboutTitle">What is SwiftCheckout?</h2>
+    <p class="section-subtitle">
+        SwiftCheckout is a Spring Boot–powered REST API platform engineered for high-concurrency retail environments.
+        It provides a complete backend for managing the full retail lifecycle — from customer onboarding and product
+        cataloging to inventory management, order placement, and payment processing — all secured with industry-standard
+        JWT authentication and role-based access control.
+    </p>
+
+    <div class="about-grid">
+
+        <div class="info-card">
+            <div class="card-icon blue"><i class="fa-solid fa-bullseye"></i></div>
+            <h3>Our Purpose</h3>
+            <p>
+                To provide a robust, scalable, and secure platform that manages the complete shopping and
+                checkout lifecycle with minimal latency, designed for real-world retail concurrency demands.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="card-icon cyan"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Enterprise Security</h3>
+            <p>
+                Spring Security 6.2 with HS256-signed JWT tokens and stateless session management ensures
+                every API endpoint is protected with industry-grade role-based authentication.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="card-icon purple"><i class="fa-solid fa-sitemap"></i></div>
+            <h3>Clean Architecture</h3>
+            <p>
+                Built on a strict layered architecture — Controllers, Services, Repositories, and DTOs —
+                with complete separation of concerns for maximum maintainability and testability.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features" aria-labelledby="featuresTitle">
+
+    <div class="section-eyebrow">
+        <i class="fa-solid fa-star"></i> Core Modules
+    </div>
+    <h2 class="section-title" id="featuresTitle">Everything You Need to Run Retail</h2>
+    <p class="section-subtitle">
+        Six fully integrated modules covering every aspect of retail operations.
+        Each module is independently testable and backed by REST APIs with clear, documented contracts.
+    </p>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+            <h3>Customer Management</h3>
+            <p>
+                Register new customers with BCrypt-hashed passwords. Authenticate via email/password
+                to receive a 24-hour JWT token. Role-based access distinguishes ADMINs from CUSTOMERs.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-box-open"></i></div>
+            <h3>Product Catalog</h3>
+            <p>
+                Full CRUD on your product catalog with SKU uniqueness enforcement.
+                Supports ELECTRONICS, CLOTHING, and GROCERY categories with search and filter
+                capabilities on the frontend.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-warehouse"></i></div>
+            <h3>Inventory Control</h3>
+            <p>
+                Real-time stock level tracking by SKU. Admins can apply positive or negative
+                adjustments to inventory. Low-stock alerts are surfaced on the dashboard
+                for immediate action.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+            <h3>Order Processing</h3>
+            <p>
+                Customers can place orders tied to their account and a product ID.
+                Orders are instantly marked COMPLETED by the service layer and stored
+                with a full audit trail of customer and product references.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <h3>Payment Gateway</h3>
+            <p>
+                Process CREDIT_CARD and DEBIT_CARD payments against completed orders.
+                Each payment transaction is persisted with amount, method, and status for
+                full financial record keeping.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-key"></i></div>
+            <h3>JWT Security</h3>
+            <p>
+                Stateless HS256-signed tokens with 24-hour expiry. Every protected endpoint
+                validates the Bearer token via a custom JwtFilter, and the SecurityConfig
+                defines granular access rules per role.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+            <h3><i class="fa-solid fa-bolt"></i> SwiftCheckout</h3>
+            <p>
+                A production-grade, high-concurrency retail management gateway powered by
+                Spring Boot 3.2, MySQL, React 19, and JWT-secured REST APIs. Built for
+                scale, designed for clarity.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Account</h4>
+            <a href="SwiftCheckoutLogin.html">Login</a>
+            <a href="SwiftCheckoutRegister.html">Register</a>
+            <a href="SwiftCheckoutDashboard.html">Dashboard</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 SwiftCheckout — High-Concurrency Retail Gateway. All rights reserved.</span>
+        <div class="footer-bottom-right">
+            <a href="#">Privacy Policy</a>
+            <a href="#">API Docs</a>
+            <a href="#">GitHub</a>
+        </div>
+    </div>
+
+</footer>
+
+</body>
+</html>

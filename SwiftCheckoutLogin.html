@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to SwiftCheckout – your high-concurrency retail management platform. Secure JWT authentication for admins and customers.">
+    <title>Login – SwiftCheckout</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/SwiftCheckoutStyle.css">
+</head>
+
+<body class="auth-page">
+
+<div class="auth-layout">
+
+    <!-- ── BRAND PANEL ── -->
+    <section class="brand-section" aria-label="SwiftCheckout branding">
+
+        <a href="SwiftCheckoutIndex.html" class="brand-home" aria-label="Back to home">
+            <i class="fa-solid fa-bolt"></i> SwiftCheckout
+        </a>
+
+        <h1>Welcome<br>Back</h1>
+
+        <p>
+            Sign in to your SwiftCheckout account to access the retail management
+            console, manage inventory, and process orders securely.
+        </p>
+
+        <div class="brand-points">
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-key"></i></div>
+                <div>
+                    <div class="brand-point-text">JWT Token Authentication</div>
+                    <div class="brand-point-desc">HS256-signed, 24-hour expiry tokens</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <div class="brand-point-text">Role-Based Access Control</div>
+                    <div class="brand-point-desc">Admin & Customer permission levels</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                    <div class="brand-point-text">BCrypt Password Security</div>
+                    <div class="brand-point-desc">Industry-standard password hashing</div>
+                </div>
+            </div>
+
+            <div class="brand-point">
+                <div class="brand-point-icon"><i class="fa-solid fa-server"></i></div>
+                <div>
+                    <div class="brand-point-text">Stateless REST API</div>
+                    <div class="brand-point-desc">Spring Security 6.2 with CSRF disabled</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Demo Credentials Hint -->
+        <div style="margin-top:32px; padding:16px 18px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:12px; position:relative; z-index:1;">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#22d3ee; margin-bottom:10px;">
+                <i class="fa-solid fa-circle-info"></i> &nbsp;Demo Credentials
+            </div>
+            <div style="font-size:13px; color:#94a3b8; line-height:2;">
+                <span style="color:#f1f5f9; font-weight:600;">Admin:</span> admin@swiftcheckout.com / admin123<br>
+                <span style="color:#f1f5f9; font-weight:600;">Cashier:</span> cashier@swiftcheckout.com / cashier123
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ── FORM PANEL ── -->
+    <section class="form-section" aria-label="Login form">
+
+        <form class="form-box" id="loginForm" novalidate>
+
+            <h2>Sign In</h2>
+            <p class="subtitle">Enter your credentials to access the dashboard</p>
+
+            <!-- Email (mapped to 'username' for JS compatibility) -->
+            <label for="username">Email Address</label>
+            <div class="input-group">
+                <input
+                    type="email"
+                    id="username"
+                    name="username"
+                    placeholder="e.g. employee@swiftcheckout.com"
+                    autocomplete="email"
+                    required
+                >
+                <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
+            </div>
+
+            <!-- Password -->
+            <label for="password">Password</label>
+            <div class="input-group" style="position:relative;">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+                <i class="fa-solid fa-lock input-icon" aria-hidden="true"></i>
+                <button
+                    type="button"
+                    id="togglePasswordBtn"
+                    aria-label="Toggle password visibility"
+                    style="
+                        position:absolute; right:14px; top:50%; transform:translateY(-50%);
+                        background:none; border:none; color:var(--text-muted); cursor:pointer;
+                        font-size:14px; padding:4px; transition:color 0.2s;
+                    "
+                    onclick="togglePassword()"
+                >
+                    <i class="fa-solid fa-eye" id="pwdIcon"></i>
+                </button>
+            </div>
+
+            <button
+                type="submit"
+                class="main-btn"
+                id="loginButton"
+            >
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Sign In
+            </button>
+
+            <p id="message" class="message" role="alert" aria-live="polite"></p>
+
+            <div class="form-divider">
+                <span>New to SwiftCheckout?</span>
+            </div>
+
+            <p class="switch-text">
+                Don't have an account?
+                <a href="SwiftCheckoutRegister.html" id="registerLink">Create Account</a>
+            </p>
+
+            <a href="SwiftCheckoutIndex.html" class="back-link" id="backToHomeLink">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+
+        </form>
+
+    </section>
+
+</div>
+
+<script src="js/SwiftCheckoutLogin.js"></script>
+
+<script>
+    function togglePassword() {
+        const pwdInput = document.getElementById('password');
+        const pwdIcon  = document.getElementById('pwdIcon');
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            pwdIcon.className = 'fa-solid fa-eye-slash';
+        } else {
+            pwdInput.type = 'password';
+            pwdIcon.className = 'fa-solid fa-eye';
+        }
+    }
+
+    // Add message color based on success/failure
+    const msgEl = document.getElementById('message');
+    const observer = new MutationObserver(() => {
+        const text = msgEl.textContent;
+        if (!text) return;
+        if (text.toLowerCase().includes('success') || text.toLowerCase().includes('welcome')) {
+            msgEl.style.color = '#4ade80';
+            msgEl.style.background = 'rgba(34,197,94,0.08)';
+            msgEl.style.border = '1px solid rgba(34,197,94,0.2)';
+        } else {
+            msgEl.style.color = '#f87171';
+            msgEl.style.background = 'rgba(239,68,68,0.08)';
+            msgEl.style.border = '1px solid rgba(239,68,68,0.2)';
+        }
+    });
+    observer.observe(msgEl, { childList: true, characterData: true, subtree: true });
+
+    // Restore button label after submit attempt
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function() {
+            const btn = document.getElementById('loginButton');
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In…';
+                setTimeout(() => {
+                    if (btn.disabled === false) {
+                        btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In';
+                    }
+                }, 3000);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
