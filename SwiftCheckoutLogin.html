@@ -7,15 +7,13 @@
     <meta name="description" content="Sign in to SwiftCheckout – your high-concurrency retail management platform. Secure JWT authentication for admins and customers.">
     <title>Login – SwiftCheckout</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/SwiftCheckoutStyle.css">
 </head>
 
@@ -23,7 +21,6 @@
 
 <div class="auth-layout">
 
-    <!-- ── BRAND PANEL ── -->
     <section class="brand-section" aria-label="SwiftCheckout branding">
 
         <a href="SwiftCheckoutIndex.html" class="brand-home" aria-label="Back to home">
@@ -73,7 +70,6 @@
 
         </div>
 
-        <!-- Demo Credentials Hint -->
         <div style="margin-top:32px; padding:16px 18px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:12px; position:relative; z-index:1;">
             <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#22d3ee; margin-bottom:10px;">
                 <i class="fa-solid fa-circle-info"></i> &nbsp;Demo Credentials
@@ -86,7 +82,6 @@
 
     </section>
 
-    <!-- ── FORM PANEL ── -->
     <section class="form-section" aria-label="Login form">
 
         <form class="form-box" id="loginForm" novalidate>
@@ -180,7 +175,6 @@
         }
     }
 
-    // Add message color based on success/failure
     const msgEl = document.getElementById('message');
     const observer = new MutationObserver(() => {
         const text = msgEl.textContent;
@@ -197,7 +191,6 @@
     });
     observer.observe(msgEl, { childList: true, characterData: true, subtree: true });
 
-    // Restore button label after submit attempt
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', function() {
